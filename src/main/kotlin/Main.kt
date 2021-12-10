@@ -1,7 +1,7 @@
-open class armaFuego() {
-    private var nombre: String
-    private var municion: Int = 50
-    private var tipoMunicion: String
+open class armaFuego(municion: Int) {
+    private var nombre: String=""
+    private var municion: Int = 0
+    private var tipoMunicion: String=""
     private var danyo: Int = 0
     private var radio = String
 
@@ -13,22 +13,26 @@ open class armaFuego() {
     open fun dispara() = municion
 }
 
-class Pistola : armaFuego
+class Pistola(municion:Int) : armaFuego(municion) {
 
-fun dispara() = municion--
+    final override fun dispara(): Int = -1
 
-class Rifle : armaFuego
 
-fun dispara() = municion - 2
+}
+class Rifle(municion: Int) : armaFuego(municion) {
 
-class bazooka : armaFuego
+    final override fun dispara(): Int = -2
+}
+class bazooka(municion: Int) : armaFuego(municion) {
 
-fun dispara() = municion - 3
+    final override fun dispara(): Int = -3
+}
+fun main() {
 
-fun main(args: Array<String>) {
-
-    var p1 : Pistola
-    p1.dispara("")
+    var p1 : Pistola = Pistola(20)
+    p1.dispara()
 
     println(p1)
+
+    var p2 :Rifle = Rifle(30)
 }
