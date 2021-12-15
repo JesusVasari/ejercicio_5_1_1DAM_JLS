@@ -1,22 +1,25 @@
-open class armaFuego(
+import java.lang.Math.random
+import java.util.*
+
+open class ArmaFuego(
     private var nombre: String = "",
     protected var municion: Int = 0,
     protected var restar: Int = 1,
     private var tipoMunicion: String = "",
-    private var daño: Int = 0,
+    private var danyo: Int = 0,
     private var radio: String = "pequeño"
 ) {
 
 
     override fun toString(): String {
-        return "$nombre, $municion, $tipoMunicion, $daño, $radio"
+        return "nombre $nombre, munición $municion, $tipoMunicion, $danyo,radio $radio"
     }
 
-    open fun recarga(): Int = municion + 6
+    open fun recarga(): Int = municion
     open fun dispara(): Int = restar
 }
 
-class Pistola(nombre: String, municion: Int,restar:Int, tipoMunicion: String, daño: Int,radio: String) : armaFuego(nombre, municion,restar, tipoMunicion, daño,radio) {
+class Pistola(nombre: String, municion: Int,restar:Int, tipoMunicion: String, danyo: Int,radio: String) : ArmaFuego(nombre, municion,restar, tipoMunicion, danyo,radio) {
 
     override fun dispara():Int {
         municion -= restar * 1
@@ -25,7 +28,7 @@ class Pistola(nombre: String, municion: Int,restar:Int, tipoMunicion: String, da
 
 }
 
-class Rifle(nombre: String, municion: Int,restar:Int, tipoMunicion: String, daño: Int,radio: String) : armaFuego(nombre, municion,restar, tipoMunicion, daño,radio) {
+class Rifle(nombre: String, municion: Int,restar:Int, tipoMunicion: String, danyo: Int,radio: String) : ArmaFuego(nombre, municion,restar, tipoMunicion, danyo,radio) {
 
     override fun dispara(): Int {
         municion -= restar * 2
@@ -33,7 +36,7 @@ class Rifle(nombre: String, municion: Int,restar:Int, tipoMunicion: String, dañ
     }
 }
 
-class Bazooka(nombre: String, municion: Int,restar:Int, tipoMunicion: String, daño: Int,radio: String) :armaFuego(nombre, municion,restar, tipoMunicion, daño,radio) {
+class Bazooka(nombre: String, municion: Int,restar:Int, tipoMunicion: String, danyo: Int,radio: String) :ArmaFuego(nombre, municion,restar, tipoMunicion, danyo,radio) {
 
     override fun dispara():Int {
         municion -= restar * 3
@@ -42,15 +45,35 @@ class Bazooka(nombre: String, municion: Int,restar:Int, tipoMunicion: String, da
 }
 
 fun main() {
-  // funciona la instancia menos restar
-    var p1: Pistola = Pistola("magnun",18,1,"44mm",50,"grande")
-    p1.dispara()
-    println(p1)
+  // funciona la instancia de los tres objetos
+    var p1: Pistola = Pistola("magnun",18,1,"44mm",50,"pequeño")
+
+    var p2 :Rifle = Rifle("remington",15,1,"shoot",18,"grande")
+
+    var p3: Bazooka = Bazooka("falcon",11,1,"granada",100,"grande")
+
+    var lista = listOf<ArmaFuego>(p1,p2,p3)
+
+    var disparos = mapOf(1 to lista[(0..2).random()] , 2 to lista[(0..2).random()], 3 to lista[(0..2).random()],4 to lista[(0..2).random()], 5 to lista[(0..2).random()], 6 to lista[(0..2).random()] )
+
+    var cont = 1
+    while (cont <= 6){
+        disparos.get(cont)?.dispara()
+        println(disparos.get(cont))
+        cont ++
+    }
 
 
-    var p2 :Rifle = Rifle("remington",15,0,"shoot",18,"grande")
-    var p3: Bazooka = Bazooka("oefmn",11,0,"granada",100,"grande")
 
-    var mapa :Map<K, out V>
-    println()
+
 }
+
+
+
+
+
+
+
+
+
+
